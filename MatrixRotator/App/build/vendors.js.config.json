@@ -1,0 +1,7 @@
+﻿[
+  "bower_components/angular/angular.min.js",
+  "bower_components/angular-local-storage/dist/angular-local-storage.min.js",
+  "bower_components/angular-loading-bar/build/loading-bar.min.js",
+  "bower_components/angular-ui-router/release/angular-ui-router.min.js",
+  "bower_components/jquery/dist/jquery.min.js"
+]

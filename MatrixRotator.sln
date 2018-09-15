@@ -5,6 +5,12 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MatrixRotator", "MatrixRotator\MatrixRotator.csproj", "{EAEA8ED5-38FA-4699-ADAF-52050F2D8575}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{42D9938A-38C8-4DE0-9A5C-34A669DFAF80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{426AC366-AA4E-4B82-A363-2DD314A420CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{3473668E-0FA2-45A4-9D6D-2BBF5BBA0DF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,6 +24,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EAEA8ED5-38FA-4699-ADAF-52050F2D8575} = {42D9938A-38C8-4DE0-9A5C-34A669DFAF80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FE97B53E-B54E-4804-AC6B-AC977C0D6180}

@@ -1,0 +1,6 @@
+﻿[
+  "App/app.js",
+  "App/routes.js",
+  "App/js/**/*.js",
+  "App/views/**/*.js"
+]
