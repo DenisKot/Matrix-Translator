@@ -23,8 +23,19 @@
 </head>
 <body>
 <div ng-controller="MasterCtrl">
-    <h1>Hello</h1>
-    <ui-view></ui-view>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">Matrix Rotator</a>
+            <ul class="nav navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Developed by Denys Kotenko</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <ui-view></ui-view>
+    </div>
 </div>
 </body>
 </html>

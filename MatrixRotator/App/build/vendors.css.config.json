@@ -1,3 +1,5 @@
 ﻿[
-  "bower_components/angular-loading-bar/build/loading-bar.min.css"
+  "bower_components/angular-loading-bar/build/loading-bar.min.css",
+  "bower_components/angular-material/angular-material.css",
+  "Content/bootstrap.min.css"
 ]

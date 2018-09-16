@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSV\CsvReaderService.cs" />
+    <Compile Include="CSV\ICsvReaderService.cs" />
     <Compile Include="Matrix\IMatrixRotatorServiceFactory.cs" />
     <Compile Include="Matrix\MatrixRotatorServiceFactory.cs" />
     <Compile Include="Matrix\IMatrixRotatorService.cs" />

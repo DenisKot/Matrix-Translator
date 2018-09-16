@@ -3,6 +3,8 @@
         'ui.router',
         'LocalStorageModule',
         'angular-loading-bar'
+        //'ngMaterial',
+        //'ngMessages'
     ]);
    
     app.config([
