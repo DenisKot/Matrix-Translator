@@ -13,6 +13,8 @@ namespace MatrixRotator
     {
         protected void Application_Start()
         {
+            AutofacConfig.Initialize(GlobalConfiguration.Configuration);
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

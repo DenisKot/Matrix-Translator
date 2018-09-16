@@ -2,7 +2,8 @@
     var app = angular.module("MatrixRotator", [
         'ui.router',
         'LocalStorageModule',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'ngFileUpload'
         //'ngMaterial',
         //'ngMessages'
     ]);

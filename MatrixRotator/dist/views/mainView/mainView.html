@@ -5,10 +5,15 @@
         <hr class="my-4">
         <p class="lead">
             <label for="exampleInputFile">Choose csv file and rotate it :)</label>
-            <input type="file" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+            <br/>
+            <button class="btn btn-primary btn-lg" ngf-select="upload($file)"
+                    ngf-accept="'.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'">
+                Choose file
+            </button>{{file.name}}
+
             <small id="fileHelp" class="form-text text-muted">After chosing file please select in what diraction rotate you matrix.</small>
-            <div class="btn btn-primary btn-lg" role="button">Rotate right</div>
-            <div class="btn btn-primary btn-lg" role="button">Rotate left</div>
+            <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateRight()">Rotate right</button>
+            <button class="btn btn-primary btn-lg" role="button" ng-if="file">Rotate left</button>
         </p>
     </div>
 
