@@ -204,6 +204,7 @@
     <Content Include="App\build\vendors.css.config.json" />
     <Content Include="App\build\vendors.js.config.json" />
     <Content Include="App\less\main.less" />
+    <Content Include="App\less\animations.less" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />

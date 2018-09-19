@@ -8,29 +8,40 @@
     using System.Net.Http;
     using System.Threading.Tasks;
     using System.Web.Http;
+    using Antlr.Runtime.Misc;
     using Services.CSV;
+    using Services.Matrix;
 
     [RoutePrefix("api/matrix")]
     public class MatrixController : ApiController
     {
         private readonly ICsvReaderService csvReaderService;
+        private readonly IMatrixRotatorServiceFactory matrixRotatorServiceFactory;
 
-        public MatrixController(ICsvReaderService csvReaderService)
+        public MatrixController(ICsvReaderService csvReaderService, IMatrixRotatorServiceFactory matrixRotatorServiceFactory)
         {
             Contract.Requires(csvReaderService != null, nameof(csvReaderService));
+            Contract.Requires(matrixRotatorServiceFactory != null, nameof(matrixRotatorServiceFactory));
 
             this.csvReaderService = csvReaderService;
-        }
-
-        [HttpGet, Route("get")]
-        public string get()
-        {
-            return "ok";
+            this.matrixRotatorServiceFactory = matrixRotatorServiceFactory;
         }
 
         [HttpPost]
-        [Route("rotate")]
-        public async Task Rotate()
+        [Route("rotateRight")]
+        public async Task<int[,]> RotateRight()
+        {
+            return await this.HandleRequest(s => s.RorateRight());
+        }
+
+        [HttpPost]
+        [Route("rotateLeft")]
+        public async Task<int[,]> RotateLeft()
+        {
+            return await this.HandleRequest(s => s.RorateLeft());
+        }
+
+        private async Task<int[,]> HandleRequest(Func<IMatrixRotatorService, int[,]> rotationServiceCall)
         {
             var provider = new MultipartMemoryStreamProvider();
             await this.Request.Content.ReadAsMultipartAsync(provider);
@@ -41,16 +52,15 @@
                 throw new ValidationException("No file choosen");
             }
 
-            var file = files.FirstOrDefault();//x => ".csv".Contains(Path.GetExtension(x.Headers.ContentDisposition.FileName.ParseFileName().ToLower()))
+            var file = files.First();//x => ".csv".Contains(Path.GetExtension(x.Headers.ContentDisposition.FileName.ParseFileName().ToLower()))
 
-            if (file != null)
-            {
-                var fileName = file.Headers.ContentDisposition.FileName;
-                var stream = await file.ReadAsStreamAsync();
-                this.csvReaderService.ReadFile(stream);
-            }
+            //var fileName = file.Headers.ContentDisposition.FileName;
+            var stream = await file.ReadAsStreamAsync();
+            var matrix = this.csvReaderService.ReadFile(stream);
+            var rotatingService = this.matrixRotatorServiceFactory.GetService(matrix);
+
+            return rotationServiceCall(rotatingService);
         }
-
 
         private ICollection<HttpContent> ReadImportRequest(MultipartMemoryStreamProvider provider)
         {
@@ -73,12 +83,6 @@
                 //.Where(
                 //        c => c.Headers.ContentType.MediaType == "application/vnd.ms-excel")
                 //    .ToList();
-        }
-        private async Task<bool> CheckIfRight(MultipartMemoryStreamProvider provider)
-        {
-            var requestContent = provider.Contents.First(c => c.Headers.ContentType.MediaType == "application/json" && c.Headers.ContentDisposition?.Name == "\"isRight\"");
-            var json = await requestContent.ReadAsStringAsync();
-            return json == "false";
         }
     }
 }

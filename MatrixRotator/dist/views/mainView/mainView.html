@@ -4,16 +4,51 @@
         <h1 class="display-3">Rotate your matrix easily!</h1>
         <hr class="my-4">
         <p class="lead">
-            <label for="exampleInputFile">Choose csv file and rotate it :)</label>
-            <br/>
-            <button class="btn btn-primary btn-lg" ngf-select="upload($file)"
-                    ngf-accept="'.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'">
-                Choose file
-            </button>{{file.name}}
-
-            <small id="fileHelp" class="form-text text-muted">After chosing file please select in what diraction rotate you matrix.</small>
-            <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateRight()">Rotate right</button>
-            <button class="btn btn-primary btn-lg" role="button" ng-if="file">Rotate left</button>
+            <div ng-show="!isLoading">
+                <label for="exampleInputFile">Choose csv file and rotate it :)</label>
+                <br/>
+                <button class="btn btn-primary btn-lg" ngf-select="fileSelected($file)"
+                        ngf-accept="'.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel'">
+                    Choose file
+                </button>
+                {{file.name}}
+                <div ng-if="error"><span class="badge badge-danger">{{error}}</span></div>
+                <small id="fileHelp" class="form-text text-muted">Csv file must be with semicolon (;). After chosing file please select in what diraction rotate you matrix.</small>
+                <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateRight()">Rotate right</button>
+                <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateLeft()">Rotate left</button>
+                
+                
+                <div ng-if="data" style="margin-top: 40px;">
+                    <h2 style="font-size: 22px; text-align: center;">Result Preview</h2>
+                    <button class="btn btn-primary btn-lg" role="button" ng-click="export();" style="margin-bottom: 14px;">Download Result CSV File</button>
+                    <table class="table table-hover" ng-if="data">
+                        <tr class="table-primary" ng-repeat="row in data">
+                            <td ng-repeat="col in row">{{col}}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Loading Animation -->
+            <div ng-if="isLoading">
+                <div class="windows8">
+                    <div class="wBall" id="wBall_1">
+                        <div class="wInnerBall"></div>
+                    </div>
+                    <div class="wBall" id="wBall_2">
+                        <div class="wInnerBall"></div>
+                    </div>
+                    <div class="wBall" id="wBall_3">
+                        <div class="wInnerBall"></div>
+                    </div>
+                    <div class="wBall" id="wBall_4">
+                        <div class="wInnerBall"></div>
+                    </div>
+                    <div class="wBall" id="wBall_5">
+                        <div class="wInnerBall"></div>
+                    </div>
+                </div>
+            </div>
         </p>
     </div>
 
