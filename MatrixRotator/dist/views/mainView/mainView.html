@@ -17,13 +17,35 @@
                 <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateRight()">Rotate right</button>
                 <button class="btn btn-primary btn-lg" role="button" ng-if="file" ng-click="rotateLeft()">Rotate left</button>
                 
+                <h2>OR</h2>
+                <!-- Random Matrix -->
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Generate randomly matrix
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" ng-repeat="variant in variants track by $index" ng-click="generate($index + 1);">{{$index + 1}}X{{$index + 1}}</a>
+                    </div>
+                </div>
+                <div ng-if="randomMatrix">
+                    <h2 style="font-size: 22px; text-align: center; margin-top: 18px;">Random Matrix</h2>
+                    <button class="btn btn-primary btn-lg" role="button" ng-click="rotateGeneratedRight()">Rotate right</button>
+                    <button class="btn btn-primary btn-lg" role="button" ng-click="rotateGeneratedLeft()">Rotate left</button>
+                    <table class="table table-hover">
+                        <tr class="table-primary" ng-repeat="row in randomMatrix track by $index">
+                            <td ng-repeat="col in row track by $index">{{col}}</td>
+                        </tr>
+                    </table>
+                </div>
                 
+                
+                <!-- Result -->
                 <div ng-if="data" style="margin-top: 40px;">
                     <h2 style="font-size: 22px; text-align: center;">Result Preview</h2>
                     <button class="btn btn-primary btn-lg" role="button" ng-click="export();" style="margin-bottom: 14px;">Download Result CSV File</button>
                     <table class="table table-hover" ng-if="data">
-                        <tr class="table-primary" ng-repeat="row in data">
-                            <td ng-repeat="col in row">{{col}}</td>
+                        <tr class="table-primary" ng-repeat="row in data track by $index">
+                            <td ng-repeat="col in row track by $index">{{col}}</td>
                         </tr>
                     </table>
                 </div>

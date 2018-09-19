@@ -28,6 +28,20 @@
         }
 
         [HttpPost]
+        [Route("matrixRight")]
+        public int[,] RotateMatrixRight([FromBody]int[,] arr)
+        {
+            return this.matrixRotatorServiceFactory.GetService(arr).RorateRight();
+        }
+
+        [HttpPost]
+        [Route("matrixLeft")]
+        public int[,] RotateMatrixLeft([FromBody]int[,] arr)
+        {
+            return this.matrixRotatorServiceFactory.GetService(arr).RorateLeft();
+        }
+
+        [HttpPost]
         [Route("rotateRight")]
         public async Task<int[,]> RotateRight()
         {

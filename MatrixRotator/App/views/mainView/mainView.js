@@ -1,22 +1,28 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('MatrixRotator').controller('MainViewController', ['$scope', 'Upload', mainViewController]);
+    angular.module('MatrixRotator').controller('MainViewController', ['$scope', 'Upload', '$http', mainViewController]);
 
-    function mainViewController($scope, Upload) {
+    function mainViewController($scope, Upload, $http) {
         var vm = $scope;
         vm.file = null;
         vm.isLoading = false;
+        vm.randomMatrix = null;
         vm.data = null;
         vm.error = null;
+        vm.variants = new Array(12);
+        vm.matrixSize = 3;
         
         vm.fileSelected = function (file) {
             vm.file = file;
+            vm.data = null;
+            vm.randomMatrix = null;
         };
 
         function makeRequest(requestType) {
             vm.isLoading = true;
             vm.data = null;
+            vm.randomMatrix = null;
             vm.error = null;
 
             Upload.upload({
@@ -63,5 +69,48 @@
 
             link.click();
         };
+
+        vm.generate = function(size) {
+            vm.matrixSize = size;
+            vm.randomMatrix = randomSquareArray(size);
+        };
+
+        function generatedMatrixRequest(requestType) {
+            vm.isLoading = true;
+            vm.data = null;
+            vm.error = null;
+
+            $http.post('api/matrix/' + requestType, vm.randomMatrix)
+                .then(function (resp) {
+                    vm.data = resp.data;
+                }, function (resp) {
+                    var message = resp.data.ExceptionMessage;
+                    vm.error = message;
+                }).finally(function () {
+                    vm.isLoading = false;
+                });
+        };
+
+        vm.rotateGeneratedRight = function() {
+            generatedMatrixRequest("matrixRight");
+        };
+
+        vm.rotateGeneratedLeft = function() {
+            generatedMatrixRequest("matrixLeft");
+        };
     }
 })();
+
+function randomSquareArray(length) {
+    var arr = [];
+    for (var i = 0; i < length; i++) {
+        arr.push(randomArray(length));
+    }
+    return arr;
+}
+
+function randomArray(length) {
+    return Array.apply(null, Array(length)).map(function () {
+        return Math.round(Math.random() * 10);
+    });
+}

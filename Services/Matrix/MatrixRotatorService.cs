@@ -10,6 +10,7 @@
         private readonly int[,] arr;
         private readonly int rows;
         private readonly int columns;
+        private int temp;
 
         private MatrixRotatorService(int[,] arr)
         {
@@ -62,9 +63,9 @@
 
         private void Swap(int row1, int col1, int row2, int col2)
         {
-            var temp = this.arr[row1, col1];
+            this.temp = this.arr[row1, col1];
             this.arr[row1, col1] = this.arr[row2, col2];
-            this.arr[row2, col2] = temp;
+            this.arr[row2, col2] = this.temp;
         }
     }
 }
